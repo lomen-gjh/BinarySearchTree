@@ -11,7 +11,7 @@ public class App extends JFrame implements ActionListener {
     TextField value;
     BSTree tree;
 
-
+    //comment
     App(){
         tree=new BSTree();
         setTitle("App");
