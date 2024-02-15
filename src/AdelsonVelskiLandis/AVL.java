@@ -12,7 +12,13 @@ public class AVL {
         if (root==null)
             root=new Node(data);
         else
-            root.insert(data,null); //placeholder
+        {
+            Node fakeParent=new Node(-1000);
+            fakeParent.right=root;
+            root.insert(data,fakeParent);
+            root=fakeParent.right;
+        }
+
     }
     public void drawAVL(Graphics g, int x, int y){
         g.clearRect(0,0,600,400);

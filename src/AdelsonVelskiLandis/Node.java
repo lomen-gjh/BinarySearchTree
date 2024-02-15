@@ -32,14 +32,14 @@ public class Node {
     }
 
     public void rightRotation(Node p){
-        Node temp=this.left.right;
+        //rotate right without using Node temp
         if (p.data<this.data){
             p.right=this.left;
         }
         else{
             p.left=this.left;
         }
-        this.left=temp;
+        this.left=this.left.right;
         this.updateBalance();
         if (p.data<this.data){
             p.right.right=this;
@@ -50,16 +50,85 @@ public class Node {
             p.left.updateBalance();
         }
         p.updateBalance();
+
     }
 
     public void leftRotation(Node p){
+        //rotate left without using Node temp
+        if (p.data<this.data){
+            p.right=this.right;
+        }
+        else{
+            p.left=this.right;
+        }
+        this.right=this.right.left;
+        this.updateBalance();
+        if (p.data<this.data){
+            p.right.left=this;
+            p.right.updateBalance();
+        }
+        else{
+            p.left.left=this;
+            p.left.updateBalance();
+        }
+        p.updateBalance();
 
     }
     public void leftRightRotation(Node p){
-
+        //combining left and right rotation will not be implemented
+        //without using temp1 and temp2 nodes
+        if (p.data<this.data){
+            p.left=this.left.right;
+        }
+        else{
+            p.right=this.left.right;
+        }
+        this.left.right=this.left.right.left;
+        if (p.data<this.data){
+            p.right.left=this.left;
+            this.left=p.right.right;
+            p.right.right=this;
+            this.updateBalance();
+            p.right.left.updateBalance();
+            p.right.updateBalance();
+        }
+        else{
+            p.left.left=this.left;
+            this.left=p.left.right;
+            p.left.right=this;
+            this.updateBalance();
+            p.left.left.updateBalance();
+            p.left.updateBalance();
+        }
+        p.updateBalance();
     }
     public void rightLeftRotation(Node p){
-
+        //combining right and left rotation will not be implemented
+        //without using temp1 and temp2 nodes
+        if (p.data<this.data){
+            p.left=this.right.left;
+        }
+        else{
+            p.right=this.right.left;
+        }
+        this.right.left=this.right.left.right;
+        if (p.data<this.data){
+            p.right.right=this.right;
+            this.right=p.right.left;
+            p.right.left=this;
+            this.updateBalance();
+            p.right.right.updateBalance();
+            p.right.updateBalance();
+        }
+        else{
+            p.left.right=this.right;
+            this.right=p.left.left;
+            p.left.left=this;
+            this.updateBalance();
+            p.left.right.updateBalance();
+            p.left.updateBalance();
+        }
+        p.updateBalance();
     }
 
     public void drawNode(Graphics g, int x, int y){
