@@ -50,7 +50,6 @@ public class Node {
             p.left.updateBalance();
         }
         p.updateBalance();
-
     }
 
     public void leftRotation(Node p){
@@ -72,63 +71,57 @@ public class Node {
             p.left.updateBalance();
         }
         p.updateBalance();
-
     }
     public void leftRightRotation(Node p){
-        //combining left and right rotation will not be implemented
-        //without using temp1 and temp2 nodes
         if (p.data<this.data){
-            p.left=this.left.right;
+           p.right=this.left.right;
         }
         else{
-            p.right=this.left.right;
+           p.left=this.left.right;
         }
         this.left.right=this.left.right.left;
+        this.left.updateBalance();
         if (p.data<this.data){
-            p.right.left=this.left;
-            this.left=p.right.right;
-            p.right.right=this;
-            this.updateBalance();
-            p.right.left.updateBalance();
-            p.right.updateBalance();
+           p.right.left=this.left;
+           this.left=p.right.right;
+           this.updateBalance();
+           p.right.right=this;
+           p.right.updateBalance();
         }
         else{
             p.left.left=this.left;
             this.left=p.left.right;
-            p.left.right=this;
             this.updateBalance();
-            p.left.left.updateBalance();
+            p.left.right=this;
             p.left.updateBalance();
         }
         p.updateBalance();
     }
     public void rightLeftRotation(Node p){
-        //combining right and left rotation will not be implemented
-        //without using temp1 and temp2 nodes
         if (p.data<this.data){
-            p.left=this.right.left;
-        }
-        else{
             p.right=this.right.left;
         }
+        else{
+            p.left=this.right.left;
+        }
         this.right.left=this.right.left.right;
+        this.right.updateBalance();
         if (p.data<this.data){
             p.right.right=this.right;
             this.right=p.right.left;
-            p.right.left=this;
             this.updateBalance();
-            p.right.right.updateBalance();
+            p.right.left=this;
             p.right.updateBalance();
         }
         else{
             p.left.right=this.right;
             this.right=p.left.left;
-            p.left.left=this;
             this.updateBalance();
-            p.left.right.updateBalance();
+            p.left.left=this;
             p.left.updateBalance();
         }
         p.updateBalance();
+
     }
 
     public void drawNode(Graphics g, int x, int y){
