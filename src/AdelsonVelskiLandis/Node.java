@@ -180,7 +180,17 @@ public class Node {
     }
 
     public Node delete(int data, Node p){
-        return null;//placeholder
+        if (this.left==null && this.right==null) {
+            if (p.data < this.data) {
+                p.right = null;
+                p.updateBalance();
+                return this;
+            }
+            p.left = null;
+            p.updateBalance();
+            return this;
+        }
+        return null; //placeholder
     }
 
     public Node findMax(Node p){
