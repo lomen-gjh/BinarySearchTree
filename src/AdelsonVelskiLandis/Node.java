@@ -177,9 +177,36 @@ public class Node {
                 leftRightRotation(p);
             }
         }
-
-
     }
+
+    public Node delete(int data, Node p){
+        return null;//placeholder
+    }
+
+    public Node findMax(Node p){
+        if (right==null){
+            p.right=this.left;
+            this.left=null;
+            p.updateBalance();
+            return this;
+        }
+        Node a=right.findMax(this);
+        p.updateBalance();
+        return a;
+    }
+
+    public Node findMin(Node p){
+        if (left==null){
+            p.left=this.right;
+            this.right=null;
+            p.updateBalance();
+            return this;
+        }
+        Node a= left.findMin(this);
+        p.updateBalance();
+        return a;
+    }
+
     public void inorder(){
         if (left!=null)
             left.inorder();
