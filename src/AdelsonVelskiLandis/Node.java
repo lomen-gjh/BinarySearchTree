@@ -165,8 +165,8 @@ public class Node {
     }
 
     public Node delete(int data, Node p){
-       if (data==this.data){
-           if (left==null && right==null){
+       if (data==this.data){ //Target reached
+           if (left==null && right==null){ //no children
                if (p.data<this.data){
                    p.right=null;
                }
@@ -176,9 +176,13 @@ public class Node {
                p.updateBalance();
                return null;
            }
-
-
+           //left child only
+           //right child only
+           //both children
        }
+       //If target not reached:
+        //if data is greater than this.data, go right
+        //if data is less than this.data, go left
        return null; //placeholder
 
     }
