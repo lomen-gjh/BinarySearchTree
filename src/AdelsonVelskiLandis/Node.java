@@ -161,6 +161,43 @@ public class Node {
             }
         }
         updateBalance();
+        rebalance(p);
+    }
+
+    public Node delete(int data, Node p){
+       if (data==this.data){
+           if (left==null && right==null){
+               if (p.data<this.data){
+                   p.right=null;
+               }
+               else{
+                   p.left=null;
+               }
+               p.updateBalance();
+               return null;
+           }
+
+
+       }
+       return null; //placeholder
+
+    }
+
+    public Node removeMax(Node p){
+        if (right==null){
+            p.right=this.left;
+            this.left=null;
+            p.updateBalance();
+            return this;
+        }
+        Node a=right.removeMax(this); //before return, store the result of the recursive call
+        //and update the balance of the parent node
+        this.rebalance(p); //rebalance the current node as you backtrack from the recursive call
+        p.updateBalance();
+        return a;
+    }
+
+    public void rebalance(Node p){
         if (balance>1){
             if (right.balance>0){
                 leftRotation(p);
@@ -178,41 +215,16 @@ public class Node {
             }
         }
     }
-
-    public Node delete(int data, Node p){
-        if (this.left==null && this.right==null) {
-            if (p.data < this.data) {
-                p.right = null;
-                p.updateBalance();
-                return this;
-            }
-            p.left = null;
-            p.updateBalance();
-            return this;
-        }
-        return null; //placeholder
-    }
-
-    public Node findMax(Node p){
-        if (right==null){
-            p.right=this.left;
-            this.left=null;
-            p.updateBalance();
-            return this;
-        }
-        Node a=right.findMax(this);
-        p.updateBalance();
-        return a;
-    }
-
-    public Node findMin(Node p){
+    public Node removeMin(Node p){
         if (left==null){
             p.left=this.right;
             this.right=null;
             p.updateBalance();
             return this;
         }
-        Node a= left.findMin(this);
+        Node a= left.removeMin(this); //before return, store the result of the recursive call
+        //and update the balance of the parent node
+        this.rebalance(p);
         p.updateBalance();
         return a;
     }
@@ -239,5 +251,6 @@ public class Node {
             right.postorder();
         System.out.print(this.data+" ");
     }
+
 
 }

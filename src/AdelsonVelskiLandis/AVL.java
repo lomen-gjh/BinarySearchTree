@@ -26,4 +26,21 @@ public class AVL {
             root.drawNode(g,x,y);
         }
     }
+
+    public static void main(String[] args) {
+        AVL a=new AVL();
+        a.insert(50);
+        a.insert(25);
+        a.insert(11);
+        a.insert(1);
+        Node fake=new Node(-1000);
+        fake.right=a.root;
+        a.root.preorder();
+        System.out.println();
+        Node storeMin=a.root.removeMin(fake);
+        a.root.preorder();
+        a.insert(70);
+        a.insert(60);
+        a.root.right.removeMin(a.root);
+    }
 }
