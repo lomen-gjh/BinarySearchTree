@@ -188,17 +188,27 @@ public class Node {
     }
 
     public Node removeMax(Node p){
+        //if right child is null, then this is the max
         if (right==null){
-            p.right=this.left;
-            this.left=null;
-            p.updateBalance();
+            //There is a single case where the parent node is greater than this node, and that is when we call removeMax on a left subtree
+            if (this.data>p.data){
+                p.right=this.left; //remove this from p.right
+            }
+            //otherwise, the parent node is less than this node, and we call removeMax on a right subtree
+            else{
+                p.left=this.left; //remove this from p.left
+            }
+            this.left=null; //remove the reference to the left child
+            p.updateBalance(); //update the balance of the parent node
             return this;
         }
-        Node a=right.removeMax(this); //before return, store the result of the recursive call
-        //and update the balance of the parent node
-        this.rebalance(p); //rebalance the current node as you backtrack from the recursive call
-        p.updateBalance();
-        return a;
+        else{
+            Node a=right.removeMax(this); //before return, store the result of the recursive call
+            //and update the balance of the parent node
+            this.rebalance(p); //rebalance the current node as you backtrack from the recursive call
+            p.updateBalance();
+            return a;
+        }
     }
 
     public void rebalance(Node p){
@@ -220,17 +230,25 @@ public class Node {
         }
     }
     public Node removeMin(Node p){
+        //if left child is null, then this is the min
         if (left==null){
-            p.left=this.right;
-            this.right=null;
-            p.updateBalance();
+            //There is a single case where the parent node is greater than this node, and that is when we call removeMin on a right subtree
+            if (this.data>p.data){
+                p.right=this.right; //remove this from p.right
+            }
+            else{
+                p.left=this.right;  //remove this from p.left
+            }
+            this.right=null; //remove the reference to the right child
+            p.updateBalance(); //update the balance of the parent node
             return this;
         }
-        Node a= left.removeMin(this); //before return, store the result of the recursive call
-        //and update the balance of the parent node
-        this.rebalance(p);
-        p.updateBalance();
-        return a;
+        else{
+            Node a=left.removeMin(this); //before return, store the result of the recursive call
+            this.rebalance(p);  //rebalance the current node as you backtrack from the recursive call
+            p.updateBalance();  //update the balance of the parent node
+            return a;
+        }
     }
 
     public void inorder(){
