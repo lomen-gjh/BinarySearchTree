@@ -43,4 +43,16 @@ public class AVL {
         a.insert(60);
         a.root.right.removeMin(a.root);
     }
+    public Node delete(int target){
+        if (root==null)
+            return null;
+        else
+        {
+            Node fakeParent=new Node(-1000);
+            fakeParent.right=root;
+            Node result=root.delete(target,fakeParent);
+            root=fakeParent.right;
+            return result;
+        }
+    }
 }

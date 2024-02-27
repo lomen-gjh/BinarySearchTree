@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class AVLGUI extends JFrame implements ActionListener {
     JPanel north, center;
-    JButton insert, draw;
+    JButton insert, delete;
     JTextField newNodeValue;
     AVL avl;
     AVLGUI(){
@@ -23,9 +23,9 @@ public class AVLGUI extends JFrame implements ActionListener {
         insert.addActionListener(this);
         newNodeValue=new JTextField(5);
         north.add(newNodeValue);
-        draw=new JButton("Draw");
-        north.add(draw);
-        draw.addActionListener(this);
+        delete=new JButton("Delete");
+        north.add(delete);
+        delete.addActionListener(this);
 
         center=new JPanel();
         this.add(center, BorderLayout.CENTER);
@@ -42,13 +42,20 @@ public class AVLGUI extends JFrame implements ActionListener {
         if (e.getSource()==insert){
             try{
                 avl.insert(Integer.parseInt(newNodeValue.getText()));
+                avl.drawAVL(center.getGraphics(),300,200);
             }
             catch (NumberFormatException err){
                 System.out.println("Numeric value required.");
             }
         }
-        if (e.getSource()==draw){
-            avl.drawAVL(center.getGraphics(), 300, 20);
+        if (e.getSource()==delete){
+            try{
+                avl.delete(Integer.parseInt(newNodeValue.getText()));
+                avl.drawAVL(center.getGraphics(),300,200);
+            }
+            catch (NumberFormatException err){
+                System.out.println("Numeric value required.");
+            }
         }
     }
 }
